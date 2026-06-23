@@ -1,0 +1,55 @@
+Language      : C++17
+Build System  : CMake
+Testing       : GoogleTest
+Networking    : POSIX/WinSock sockets
+Storage       : unordered_map
+Concurrency   : thread + shared_mutex
+Persistence   : fstream
+
+redis-lite/
+│
+├── CMakeLists.txt
+│
+├── src/
+│   ├── main.cpp
+│   │
+│   ├── cache/
+│   │   ├── CacheEngine.h
+│   │   └── CacheEngine.cpp
+│   │
+│   ├── storage/
+│   │   ├── Entry.h
+│   │   └── StorageEngine.h
+│   │
+│   ├── ttl/
+│   │
+│   ├── eviction/
+│   │
+│   ├── metrics/
+│   │
+│   ├── persistence/
+│   │
+│   ├── replication/
+│   │
+│   └── server/
+│
+└── tests/
+
+
+RESP (Redis Serialization Protocol ) : Redis client (your application) and the Redis server use to talk to each other. 
+
+DAEMON : A Daemon is simply a background process that runs silently to manage
+             these two tasks without freezing the main database engine.
+        - The background daemon quietly writes all that data to an .rdb file on the solid-state drive (SSD).
+        - use the fork() mechanism of os to run in background
+
+Snapshots (RDB) - Single file binary representation of entire dataset 
+        - OS concept called Copy-on-Write (CoW), this child process gets a point-in-time duplicate of 
+            the memory without actually copying the data in RAM.
+        - Pros: The file size is very small and optimized. It is incredibly fast to load back into memory if the server restarts.
+        - Cons: You can lose data. If you configure snapshots to happen every 5 minutes,
+            and the server crashes at minute 4, you lose 4 minutes of data.
+
+WAL(Write-Ahead Log (AOF)) - To solve the data-loss problem of snapshots, 
+    Redis uses a Write-Ahead Log (WAL), which Redis calls the Append Only File (AOF).
+ 
