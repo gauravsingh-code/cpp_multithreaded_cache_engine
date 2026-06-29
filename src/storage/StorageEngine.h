@@ -22,10 +22,13 @@ class StorageEngine
         const std::string &key
      );
 
+     std::size_t size() const;
 
      private:
      std::unordered_map<
      std::string,
      Entry
      > store__;
+
+     std::size_t size();
 };

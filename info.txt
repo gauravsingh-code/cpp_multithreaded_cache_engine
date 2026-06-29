@@ -6,6 +6,22 @@ Storage       : unordered_map
 Concurrency   : thread + shared_mutex
 Persistence   : fstream
 
+
+rom the repo root, use these commands:
+
+Configure the project, if needed:
+cmake -S . -B build
+
+Build it:
+cmake --build build
+
+Run the executable on Windows:
+.\build\cpp_multithreaded_cache_engine.exe
+
+If you want a Debug build with this MinGW setup, configure with:
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+
+
 redis-lite/
 │
 ├── CMakeLists.txt

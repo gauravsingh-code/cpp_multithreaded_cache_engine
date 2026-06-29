@@ -1,23 +1,22 @@
 #pragma once
 
-#include<optional>
-#include<string>
+#include <optional>
+#include <string>
 
 #include "../storage/StorageEngine.h"
 
-class CacheEngine{
-    public:
-        bool set(
-            const std::string &key,
-            const std::string &value
-        );
+class CacheEngine
+{
+public:
+    bool set(
+        const std::string &key,
+        const std::string &value);
 
-        std::optional<std::string>get(
-            const std::string &key
-        );
+    std::optional<std::string> get(
+        const std::string &key);
 
-        bool erase(const std::string &key);
+    bool erase(const std::string &key);
 
-    private:
-        StorageEngine storage__;
+private:
+    StorageEngine storage__;
 };
