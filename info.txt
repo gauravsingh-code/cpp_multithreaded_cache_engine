@@ -19,7 +19,7 @@ Run the executable on Windows:
 .\build\cpp_multithreaded_cache_engine.exe
 
 If you want a Debug build with this MinGW setup, configure with:
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug 
 
 
 redis-lite/
@@ -68,4 +68,17 @@ Snapshots (RDB) - Single file binary representation of entire dataset
 
 WAL(Write-Ahead Log (AOF)) - To solve the data-loss problem of snapshots, 
     Redis uses a Write-Ahead Log (WAL), which Redis calls the Append Only File (AOF).
+
+
+RAII -  stands for Resource Acquisition Is Initialization. It is a core programming technique in C++ where the
+         lifecycle of a resource is strictly tied to the lifetime of a local object.
  
+
+ Scenario	Command
+Changed a .cpp or .h file	: cmake --build .\build
+Added a new file (update CMakeLists.txt too!):	cmake -S . -B build then cmake --build .\build
+Something is broken, start fresh	Delete build\ folder, then reconfigure + build
+
+If you add a new .cpp file, you must also add it to 
+CMakeLists.txt
+ under add_executable(...) before rebuilding.

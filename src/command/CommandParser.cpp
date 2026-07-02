@@ -31,31 +31,41 @@ Command CommandParser::parse(const std::string &input){
     }
 
     if(tokens[0] == "DELETE"){
-        if(tokens.size() != 2){
-            return {CommandType::DELETE_KEY, "", ""};
+        if(tokens.size() == 2){
+            return {CommandType::DELETE_KEY, tokens[1], ""};
         }
 
         return {
             CommandType::INVALID,
-            tokens[1],
+            "",
             ""
         };
     }
 
     if(tokens[0] == "SET"){
-        if(tokens.size() != 3){
+        if(tokens.size() < 3){
             return {
                 CommandType::INVALID,
                 "",
                 ""
             };
         }
+        
+        std::string value;
+        for(size_t i = 2; i<tokens.size(); i++){
+            if(i > 2){
+                value += " ";
+            }
+            value += tokens[i];
+        }
 
         return {
             CommandType::SET,
             tokens[1],
-            tokens[2]
+            value
         };
     }
+
+    // Fallback: unknown command
     return {CommandType::INVALID, "", ""};
-}
+};

@@ -3,6 +3,7 @@
 #include<unordered_map>
 #include<optional>
 #include<string>
+#include<shared_mutex>
 
 #include "Entry.h"
 
@@ -23,6 +24,7 @@ class StorageEngine
      );
 
      std::size_t size() const;
+     std::size_t size();
 
      private:
      std::unordered_map<
@@ -30,5 +32,6 @@ class StorageEngine
      Entry
      > store__;
 
-     std::size_t size();
+     mutable std::shared_mutex mutex__;
+
 };
