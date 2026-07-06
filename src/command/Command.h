@@ -7,7 +7,8 @@ enum class CommandType{
     GET,
     DELETE_KEY,
     INVALID,
-    EXIT
+    EXIT,
+    ALL
 };
 
 struct Command{

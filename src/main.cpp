@@ -48,6 +48,11 @@ int main(){
                 return 0;
             }
 
+            case CommandType::ALL:{
+                cache.all();
+                break;
+            }
+
             default:
             {
                 std::cout<<"INVALID COMMAND\n";

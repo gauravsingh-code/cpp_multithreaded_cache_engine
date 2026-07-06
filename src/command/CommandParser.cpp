@@ -66,6 +66,17 @@ Command CommandParser::parse(const std::string &input){
         };
     }
 
+    if(tokens[0] == "ALL"){
+        if(tokens.size() != 1){
+            return {CommandType::INVALID, "", ""};
+        }
+        return {
+            CommandType::ALL,
+            "",
+            ""
+        };
+    }
+
     // Fallback: unknown command
     return {CommandType::INVALID, "", ""};
 };

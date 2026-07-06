@@ -4,6 +4,7 @@
 #include<optional>
 #include<string>
 #include<shared_mutex>
+#include<iostream>
 
 #include "Entry.h"
 
@@ -23,8 +24,9 @@ class StorageEngine
         const std::string &key
      );
 
+     void all();
+
      std::size_t size() const;
-     std::size_t size();
 
      private:
      std::unordered_map<

@@ -30,4 +30,11 @@ std::size_t StorageEngine::size() const{
     return store__.size();
 };
 
+void StorageEngine::all(){
+    std::shared_lock<std::shared_mutex> lock(mutex__);
+    for(const auto  &pair : store__){
+        std::cout << "Key: " << pair.first << ", Value: " << pair.second.value << "\n";
+    }
+}
+
 

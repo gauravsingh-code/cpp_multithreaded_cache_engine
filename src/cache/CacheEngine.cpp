@@ -18,3 +18,7 @@ bool CacheEngine::erase(
 {
     return storage__.erase(key);
 }
+
+void CacheEngine::all(){
+    storage__.all();
+}

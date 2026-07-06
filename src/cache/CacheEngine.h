@@ -17,6 +17,8 @@ public:
 
     bool erase(const std::string &key);
 
+    void all();
+
 private:
     StorageEngine storage__;
 };

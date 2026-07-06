@@ -17,3 +17,9 @@ add_executable(cpp_multithreaded_cache_engine
     )
 
 target_include_directories(cpp_multithreaded_cache_engine PRIVATE src)
+
+add_executable(cpp_multithreaded_cache_engine_tests
+    tests/ThreadTest.cpp
+    src/storage/StorageEngine.cpp
+)
+target_include_directories(cpp_multithreaded_cache_engine_tests PRIVATE src)
