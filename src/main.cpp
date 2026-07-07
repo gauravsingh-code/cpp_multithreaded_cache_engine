@@ -2,6 +2,17 @@
 
 #include "cache/CacheEngine.h"
 #include "command/CommandParser.h"
+#include "network/TcpServer.h"
+
+
+//-------Checking for the TcpServer class----------------
+// int main(){
+
+//     TcpServer server(8080);
+//     server.start();
+
+//     return 0;
+// }
 
 int main(){
 

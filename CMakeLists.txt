@@ -9,14 +9,17 @@ add_executable(cpp_multithreaded_cache_engine
     src/cache/CacheEngine.cpp
     src/storage/StorageEngine.cpp
     src/command/CommandParser.cpp
+    src/network/TcpServer.cpp
     
     src/cache/CacheEngine.h
     src/storage/StorageEngine.h
     src/command/Command.h
     src/command/CommandParser.h
+    src/network/TcpServer.h
     )
 
 target_include_directories(cpp_multithreaded_cache_engine PRIVATE src)
+target_link_libraries(cpp_multithreaded_cache_engine PRIVATE Ws2_32)
 
 add_executable(cpp_multithreaded_cache_engine_tests
     tests/ThreadTest.cpp
