@@ -15,4 +15,5 @@ class TcpServer{
     int port_;
     SOCKET listenSocket_;
     WSADATA wsaData_;
+    SOCKET clientSocket_;
 };
