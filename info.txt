@@ -82,3 +82,22 @@ Something is broken, start fresh	Delete build\ folder, then reconfigure + build
 If you add a new .cpp file, you must also add it to 
 CMakeLists.txt
  under add_executable(...) before rebuilding.
+
+
+
+ WSAStartup()
+      │
+      ▼
+socket()
+      │
+      ▼
+bind()
+      │
+      ▼
+listen()
+      │
+      ▼
+accept()
+      │
+      ▼
+Client Connected
