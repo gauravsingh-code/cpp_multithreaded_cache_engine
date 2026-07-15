@@ -101,3 +101,12 @@ accept()
       │
       ▼
 Client Connected
+
+
+Winsock - for netwroking on windows,
+    - WSAStartup() : Initializes the Winsock library. Must be called before any other Winsock functions.
+    - socket() : Creates a new socket.
+    - bind() : Associates the socket with a specific IP address and port number.
+    - listen() : Puts the socket into listening mode, allowing it to accept incoming connections.
+    - accept() : Waits for an incoming connection and returns a new socket for communication with the client.
+    
