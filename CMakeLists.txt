@@ -26,3 +26,9 @@ add_executable(cpp_multithreaded_cache_engine_tests
     src/storage/StorageEngine.cpp
 )
 target_include_directories(cpp_multithreaded_cache_engine_tests PRIVATE src)
+
+add_executable(cache_client 
+    src/client/Client.cpp
+)
+target_include_directories(cache_client PRIVATE src)
+target_link_libraries(cache_client PRIVATE Ws2_32)

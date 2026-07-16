@@ -3,17 +3,22 @@
 #include<winsock2.h>
 #include<ws2tcpip.h>
 
+
 class TcpServer{
     public:
-     TcpServer(int port);
+        TcpServer(int port);
 
-     ~TcpServer();
+        ~TcpServer();
 
-     bool start();
+        bool start();
 
     private:
-    int port_;
-    SOCKET listenSocket_;
-    WSADATA wsaData_;
-    SOCKET clientSocket_;
+        int port_;
+        SOCKET listenSocket_;
+        WSADATA wsaData_    ;
 };
+
+    //winsock start
+        // int start
+
+    //socket

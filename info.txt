@@ -85,28 +85,83 @@ CMakeLists.txt
 
 
 
- WSAStartup()
-      │
-      ▼
-socket()
-      │
-      ▼
-bind()
-      │
-      ▼
-listen()
-      │
-      ▼
-accept()
-      │
-      ▼
-Client Connected
+✅ Storage
+✅ Command Parser
+✅ Thread Safety
+✅ Thread Test
+
+⬜ Thread Pool
+⬜ TCP Server
+⬜ TTL
+⬜ LRU Eviction
+⬜ Memory Limits
+⬜ Persistence
+⬜ Replication
+⬜ Metrics
 
 
-Winsock - for netwroking on windows,
-    - WSAStartup() : Initializes the Winsock library. Must be called before any other Winsock functions.
-    - socket() : Creates a new socket.
-    - bind() : Associates the socket with a specific IP address and port number.
-    - listen() : Puts the socket into listening mode, allowing it to accept incoming connections.
-    - accept() : Waits for an incoming connection and returns a new socket for communication with the client.
-    
+                CLI
+                 │
+                 ▼
+          Command Parser
+                 │
+                 ▼
+          Cache Engine
+                 │
+                 ▼
+          Storage Engine
+                 │
+        +--------+--------+
+        |                 |
+        ▼                 ▼
+  unordered_map      shared_mutex
+
+
+
+
+-- TCP server steps ---
+  Start
+↓
+Create socket
+↓
+Bind socket to a port
+↓
+Listen
+↓
+Accept client
+↓
+Read command
+↓
+Execute
+↓
+Send response
+↓
+Repeat forever
+
+
+
+2. WSAStartup(MAKEWORD(2, 2), &wsaData)
+WSAStartup(...): The function that initiates the WS2_32.dll library for the process.
+MAKEWORD(2, 2): A macro that constructs a WORD specifying the requested version of Winsock.
+2, 2 requests Winsock Version 2.2 (the standard modern version for Windows network programming).
+&wsaData: Passes the address of the WSADATA structure to receive configuration details populated by Windows.
+
+3. Error Handling (if (...) != 0)
+WSAStartup returns 0 on success.
+If it returns any non-zero value, it indicates an initialization failure (e.g., system network subsystem not ready, requested version unsupported).
+
+
+/*************************************************************/
+cmake -B build                                                
+cmake --build build --target cpp_multithreaded_cache_engine   
+cmake --build build --target cache_client
+
+cpp_multithreaded_cache_engine.exe (The Server)
+cache_client.exe (The Client)
+/*************************************************************/
+
+
+Code	Explanation
+htons(8080)	Host To Network Short: Converts the port number from host byte order (Little Endian on x86) to network byte order (Big Endian).
+inet_pton(...)	Presentation to Network: Converts "127.0.0.1" (text string) into binary in serverAddress.sin_addr.
+connect(...)	Initiates the TCP 3-way handshake to the server listening on 127.0.0.1:8080.
