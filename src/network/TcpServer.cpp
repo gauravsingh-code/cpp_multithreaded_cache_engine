@@ -64,9 +64,34 @@ bool TcpServer::start(){
         // WSACleanup();
         return false;
     }
-
-
     std::cout<<"Client Connected successfully .\n";    
+
+    char buffer[1024] = {0};
+    
+    //receiving the data sent by the client
+    int byteReceived = recv(clientSocket_, buffer, sizeof(buffer) -1, 0);
+    
+    if(byteReceived == SOCKET_ERROR){
+        std::cout<<"Failed to receive data: " << WSAGetLastError()<<std::endl;
+        return false;
+    }else if(byteReceived == 0){
+        std::cout<<"Client disconnected gracefully\n";
+        return false;   
+    }else{
+        buffer[byteReceived] = '\0';
+        std::cout<<"Received: "<<buffer<<std::endl;
+    }
+
+    //sendigng response to the client
+    const char *message = "Hey, hw are yu clinet ?";
+
+    int bytesSent = send(clientSocket_ , message , strlen(message) , 0);
+    if(bytesSent == SOCKET_ERROR){
+        std::cout<<"Failed to send data: " << WSAGetLastError()<<std::endl;
+        return false;
+    }
+
+    std::cout<<"Data sent successfully FROM SERVER: \n"<<message<<std::endl;  
     return true;
 }
 

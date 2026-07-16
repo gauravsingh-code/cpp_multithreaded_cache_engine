@@ -15,7 +15,8 @@ class TcpServer{
     private:
         int port_;
         SOCKET listenSocket_;
-        WSADATA wsaData_    ;
+        SOCKET clientSocket_;
+        WSADATA wsaData_;
 };
 
     //winsock start

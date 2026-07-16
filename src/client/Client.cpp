@@ -31,7 +31,8 @@ int main(){
      serverAddress.sin_family = AF_INET;
      serverAddress.sin_port = htons(8080);  //port as per server's
     
-     //conver ipv4 string "127.0.0.1" to binary format
+     //conver ipv4 string "[IP_ADDRESS]" to binary format 
+     // this function convertsPresentation format (what we write) to Network format(what the computer understand)
      if(inet_pton(AF_INET,"127.0.0.1", &serverAddress.sin_addr) <= 0){
         std::cout<<"Invalid server address/IP format"<<std::endl;
         closesocket(clientSocket);
@@ -41,6 +42,7 @@ int main(){
 
 
     //4.connect to server
+    //reinterpret_cast is used to convert the pointer type of serverAddress to sockaddr_in* to match the connect() function's expected argument type.
     if(connect(clientSocket, reinterpret_cast<sockaddr*>(&serverAddress), sizeof(serverAddress)) == SOCKET_ERROR){
         std::cout<<"Connection to server failed with error: "<<WSAGetLastError()<<std::endl;
         closesocket(clientSocket);
@@ -48,6 +50,35 @@ int main(){
         return 1;
     }
     std::cout<<"Connected to server successfully! "<<std::endl;
+    
+    const char *message = "Hello server\n ";
+    int bytesSent = send(clientSocket, message, static_cast<int>(strlen(message)), 0);
+    
+    if(bytesSent == SOCKET_ERROR){
+        std::cout<<"Failed to send data\n";
+        closesocket(clientSocket);
+        WSACleanup();
+        return 1;
+    }
+    std::cout<<"Data sent successfully.\n"<<bytesSent<<" bytes"<<std::endl; 
+    
+    //lets's receive the data from server
+    char buffer[1024] = {0};
+    int bytesReceived = recv(clientSocket , buffer, sizeof(buffer) -1, 0);
+
+    if(bytesReceived == SOCKET_ERROR){
+        std::cout<<"Failed to receive response\n";
+        closesocket(clientSocket);
+        WSACleanup();
+        return 1;
+    }
+
+    //setting the last of string to null string like a c string
+    buffer[bytesReceived] = '\0';
+    
+    std::cout<<"Server says: "<<buffer <<'\n';
+
+    
     
     //cleanup when done
     closesocket(clientSocket);

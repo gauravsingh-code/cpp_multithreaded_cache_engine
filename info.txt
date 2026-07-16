@@ -165,3 +165,7 @@ Code	Explanation
 htons(8080)	Host To Network Short: Converts the port number from host byte order (Little Endian on x86) to network byte order (Big Endian).
 inet_pton(...)	Presentation to Network: Converts "127.0.0.1" (text string) into binary in serverAddress.sin_addr.
 connect(...)	Initiates the TCP 3-way handshake to the server listening on 127.0.0.1:8080.
+
+
+#pragma comment(lib, "Ws2_32.lib") : this is a Microsoft Visual C++ (MSVC) preprocessor directive that tells the linker to 
+automatically link the Windows Sockets 2 library (Ws2_32.lib) into your executable.
