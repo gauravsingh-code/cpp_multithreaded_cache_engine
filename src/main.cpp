@@ -28,7 +28,7 @@ int main(){
 //         std::getline(std::cin, input);
 //         if (!input.empty() && input.back() == '\r') input.pop_back(); // strip Windows \r
 
-//         auto command = parser.parse(input);
+//         auto command = parser.parse(input); 
 
 //         switch(command.type){
 //             case CommandType::SET:
