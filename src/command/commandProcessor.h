@@ -8,9 +8,9 @@ class commandProcessor{
         commandProcessor(CacheEngine &cache_);
         ~commandProcessor();
 
-    private:
-    CacheEngine cache_;
-    
+        std::string execute(const std::string &input);
 
+    private:
+    CacheEngine &cache_;    
 
 };

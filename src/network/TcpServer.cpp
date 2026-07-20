@@ -2,7 +2,7 @@
 
 #include "TcpServer.h"
 
-TcpServer::TcpServer(int port) : port_(port) , listenSocket_(INVALID_SOCKET), clientSocket_(INVALID_SOCKET) {};
+TcpServer::TcpServer(int port, commandProcessor &processor) : port_(port) , listenSocket_(INVALID_SOCKET), clientSocket_(INVALID_SOCKET), processor_(processor) {};
 
 TcpServer::~TcpServer(){
     if(listenSocket_ != INVALID_SOCKET){
@@ -83,7 +83,10 @@ bool TcpServer::start(){
     }
 
     //sendigng response to the client
-    const char *message = "Hey, hw are yu clinet ?";
+    // const char *message = "Hey, hw are yu clinet ?";
+    std::string response = processor_.execute(buffer); //process the command and get the response
+    std::cout<<"Response from commandProcessor: "<<response<<std::endl;
+    const char *message = response.c_str();  //c style response string with a null pointer to send to the client 
 
     int bytesSent = send(clientSocket_ , message , strlen(message) , 0);
     if(bytesSent == SOCKET_ERROR){

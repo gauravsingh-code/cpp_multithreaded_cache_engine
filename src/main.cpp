@@ -3,16 +3,48 @@
 #include "cache/CacheEngine.h"
 #include "command/CommandParser.h"
 #include "network/TcpServer.h"
+#include "command/commandProcessor.h"
 
-
-//-------Checking for the TcpServer class----------------
 int main(){
+    
+    std::cout << "******** NEW BUILD ********\n";
+    CacheEngine cache;
+    commandProcessor processor(cache);
+    
+    //Creating a TCP server on port 8080 and passing the commandProcessor to it
+    TcpServer server(8080, processor);
+    server.start();  //start the server and listen for incoming connections
+    if(!server.start()){
+        std::cout<<"Server failed to start\n";
+        return 1;
+    }
+    
 
-    TcpServer server(8080);
-    server.start();
+    while(true){
+        std::cout << "> ";
+        std::string input;
+        std::getline(std::cin, input);
+        if(!input.empty() && input.back() == '\r') input.pop_back(); // strip Windows \r
+        
+        //using commandProcessor to execute the command
+        std::string result = processor.execute(input);
 
+        if(result == "EXIT"){
+            break;
+        }
+        std::cout << result << '\n';
+    }
     return 0;
 }
+
+//-------Checking for the TcpServer class----------------
+// int main(){
+
+//     TcpServer server(8080);
+//     server.start();
+
+//     return 0;
+// }
 
 // int main(){
 

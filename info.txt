@@ -169,3 +169,25 @@ connect(...)	Initiates the TCP 3-way handshake to the server listening on 127.0.
 
 #pragma comment(lib, "Ws2_32.lib") : this is a Microsoft Visual C++ (MSVC) preprocessor directive that tells the linker to 
 automatically link the Windows Sockets 2 library (Ws2_32.lib) into your executable.
+
+      
+      
+               CacheEngine
+             +-------------+
+             | Storage     |
+             +-------------+
+                    ▲
+                    │
+        +-----------------------+
+        | CommandProcessor      |
+        |                       |
+        | parser_               |
+        | cache_ (reference) ---+
+        +-----------------------+
+
+
+-> How "Non-Copyable" Propagates
+This restriction cascades up through any class that owns a non-copyable member by value:
+
+When a class contains a non-copyable member, the compiler implicitly deletes its own copy constructor too.
+ You never wrote = delete on StorageEngine or CacheEngine, but the compiler did it for you.
