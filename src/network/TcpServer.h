@@ -13,6 +13,10 @@ class TcpServer{
         bool start();
 
     private:
+
+        bool initialize();
+
+        void handleClient(SOCKET clientSocket);
         int port_;
         SOCKET listenSocket_;
         SOCKET clientSocket_;

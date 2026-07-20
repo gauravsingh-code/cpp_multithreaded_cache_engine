@@ -191,3 +191,28 @@ This restriction cascades up through any class that owns a non-copyable member b
 
 When a class contains a non-copyable member, the compiler implicitly deletes its own copy constructor too.
  You never wrote = delete on StorageEngine or CacheEngine, but the compiler did it for you.
+
+
+                  Client
+while(true)
+{
+    Read Command
+    send()
+    recv()
+    Print}
+
+================ TCP ================
+Server
+
+while(true)
+{
+    accept()
+    while(client connected)
+    {
+        recv()
+        execute()
+        send()
+    }
+}
+
+
